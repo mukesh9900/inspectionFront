@@ -1,0 +1,116 @@
+
+<nav class="navbar navbar-default" style="border:1px solid black">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/">UreachUs</a>
+       <!-- <span>UreachUs</span> -->
+    </div>
+    <ul class="nav navbar-nav">
+      <span>Welcome, Esther Howard</span>
+    </ul>
+  </div>
+</nav>
+
+<nav class="navbar navbar-default" style="border:1px solid black">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <span>Inspections</span>
+    </div>
+    <ul class="nav navbar-nav">
+      <button routerLink="/addInspection">Create New Item</button>
+    </ul>
+  </div>
+</nav>
+
+<nav class="navbar navbar-default" style="border:1px solid black">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <input type="text" [(ngModel)]="searchText" placeholder="Search Inspection">
+    </div>
+    <ul>
+      <ng-multiselect-dropdown
+    [placeholder]="'Choose from a City' "
+    [settings]="dropdownSettings"
+    [data]="dropdownList"
+    [(ngModel)]="selectedItems"
+    (onSelect)="onItemSelect($event)"
+    (onSelectAll)="onSelectAll($event)">
+  </ng-multiselect-dropdown>
+    </ul>
+
+    <ul>
+      <button (click)="showRowView()">:::::</button>
+      <button (click)="showGridView()">==</button>
+    </ul>
+    <ul>
+      
+    </ul>
+  </div>
+</nav>
+
+
+
+<div *ngIf="gridView; else rowView">
+  <div class="container">
+    <div class ='card-group'>
+        <div class="card" *ngFor="let inspection of inspections | filter:searchText ">
+            <div class="card-body">
+                <h5>{{inspection.businessName }}</h5>
+                <h6>{{inspection.industrySector}}</h6>
+                <div >
+                  <div>Inspection Id</div>
+                    <div display:inline-block>{{inspection.inspectionId}}</div>
+                    <div>Inspection Date</div>
+                    <div float:right>{{inspection.inspectionDate}}</div>
+                </div>
+                
+                <div display:grid>
+                  <div>certificate N'</div>
+                    <div>{{inspection.certificateN}}</div>
+                    <div>City</div>
+                    <div>{{inspection.city}}</div>
+                </div>
+                
+                <button className="float-left btn btn-success" (click)="updateInspection(inspection)">Update</button>
+                <button className="float-right btn btn-danger" (click)="deleteInspection(inspection)">Delete</button>
+            </div>
+    
+        </div>
+    </div>
+</div>
+</div>
+
+<ng-template #rowView >
+    <div>
+      <table class="table table-light">
+        <thead>
+          <tr>
+            <th (click)="sort('inspectionId')">Inspection Id ^&nbsp;<i class="fa fa-sort-asc" aria-hidden="true"></i></th>
+            <th (click)="sort('certificateN')">Certificate N ^&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th (click)="sort('businessName')">Business Name ^&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th (click)="sort('industrySector')">Industry Sector ^&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th (click)="sort('city')">City ^&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th (click)="sort('inspectionDate')">Inspection Date ^&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th (click)="sort('inspectionResult')">Inspection Result ^&nbsp;<i class="fa fa-sort" aria-hidden="true"></i></th>
+          </tr>
+        </thead>
+
+        <tbody>
+           <tr *ngFor="let inspection of inspections |filter:searchText |orderBy:key:reverse | paginate:{itemsPerPage:4, currentPage:p}">
+              <td>{{inspection.inspectionId}}</td>
+              <td>{{inspection.certificateN}}</td>
+              <td>{{inspection.businessName }}</td>
+              <td>{{inspection.industrySector}}</td>
+              <td>{{inspection.city}}</td>
+              <td>{{inspection.inspectionDate}}</td>
+              <td>{{inspection.inspectionResult}}</td>
+           </tr>
+        </tbody>
+        <pagination-controls (pageChange)="p=$event"></pagination-controls>
+      </table>
+    </div>
+</ng-template>
+
+
+
+

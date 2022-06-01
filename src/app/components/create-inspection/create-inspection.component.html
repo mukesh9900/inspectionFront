@@ -1,0 +1,59 @@
+<div class="col-md-4" style="text-align:center">
+    <h4 class="text-center">Create New Inspection</h4>
+    <form  style="display: inline-block; margin:10px;border:1px solid black" #inspectionDetails="ngForm" (ngSubmit)="addInspection(inspectionDetails.value)">
+
+        <div>
+            <h5>General Information</h5>
+            <div class="form-group">
+                <label>Business Name</label>
+                <input type="text" class="form-control" name="businessName" ngModel>
+            </div>
+            <div class="form-group">
+                <label>Industry Sector</label>
+                <input type="text" class="form-control" name="industrySector" ngModel>
+            </div>
+            <div class="form-group">
+                <label>certificate N</label>
+                <input type="number" class="form-control" name="certificateN" ngModel>
+            </div>
+        </div>
+
+        <div>
+            <h5>Contact Information</h5>
+            <div class="form-group">
+                <label>Street</label>
+                <input type="text" class="form-control" name="street" ngModel>
+            </div>
+            <div class="form-group">
+                <label>city</label>
+                <input type="text" class="form-control" name="city" ngModel>
+            </div>
+            <div class="form-group">
+                <label>Zip Code</label>
+                <input type="number" class="form-control" name="zipcode" ngModel>
+            </div>
+            <div class="form-group">
+                <label>Number</label>
+                <input type="number" class="form-control" name="phNumber" ngModel>
+            </div>
+        </div>
+
+        <div>
+            <h5>Inspection Remarks</h5>
+            <div class="form-group">
+                <label>ID</label>
+                <input type="text" class="form-control" name="inspectionId" ngModel>
+            </div>
+            <div class="form-group">
+                <label>Inspection Result</label>
+                <input type="text" class="form-control" name="inspectionResult" ngModel>
+            </div>
+        </div>
+    
+    <button routerLink="/">Cancel</button>
+    <span></span>
+    <button type="submit">Save</button>
+    </form>
+</div>
+
+
